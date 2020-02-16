@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <nb-card size="medium">
+              <nb-card-header>Movements
+                <button (click)="openAdd()"
+                        nbButton
+                        size="small"
+                        status="primary">
+                  ADD
+                </button>
+              </nb-card-header>
+              <nb-card-body>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th class="text-center">Date</th>
+                    <th class="text-right">Amount</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let transaction of transactions">
+                    <td class="{{transaction.type}}-indicator"></td>
+                    <td>{{transaction.category | titlecase}}</td>
+                    <td>{{transaction.description}}</td>
+                    <td class="text-center">{{transaction.date| date:'dd/MM/yyyy'}}</td>
+                    <td class="{{transaction.type}} text-right">{{transaction.amount}}</td>
+                    <td class="text-right">
+                      <nb-icon (click)="delete(transaction.id)" icon="trash-2-outline" status="danger"></nb-icon>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <nb-card size="small">
+              <nb-card-header>Add</nb-card-header>
+              <nb-card-body>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <nb-card size="small">
+              <nb-card-header>Add</nb-card-header>
+              <nb-card-body><!--<app-add></app-add>--></nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <nb-card size="tiny">
+              <nb-card-header>Add</nb-card-header>
+              <nb-card-body><!--<app-add></app-add>--></nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--  <div class="row">-->
+  <!--    <div class="col">-->
+  <!--      <nb-card>-->
+  <!--        <nb-card-header>Add</nb-card-header>-->
+  <!--        <nb-card-body>-->
+  <!--        </nb-card-body>-->
+  <!--      </nb-card>-->
+  <!--    </div>-->
+  <!--    <div class="col">-->
+  <!--      <nb-card>-->
+  <!--        <nb-card-header>Add</nb-card-header>-->
+  <!--      </nb-card>-->
+  <!--    </div>-->
+  <!--    <div class="col">-->
+  <!--      <nb-card>-->
+  <!--        <nb-card-header>Add</nb-card-header>-->
+  <!--      </nb-card>-->
+  <!--    </div>-->
+  <!--  </div>-->
+</div>
+
+

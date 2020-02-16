@@ -8,7 +8,7 @@ import {AppComponent} from './app.component';
 import {NavbarComponent} from './shared/layout/navbar/navbar.component';
 import {FooterComponent} from './shared/layout/footer/footer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HistoryComponent} from './pages/history/history.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AddComponent} from './pages/add/add.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -22,7 +22,7 @@ import {
   NbSearchModule, NbSelectModule,
   NbSidebarModule,
   NbThemeModule,
-  NbUserModule
+  NbUserModule, NbWindowModule
 } from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 
@@ -31,7 +31,7 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    HistoryComponent,
+    DashboardComponent,
     AddComponent,
     AuthComponent,
   ],
@@ -56,10 +56,14 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
     NbButtonModule,
     NbRadioModule,
     NbSelectModule,
-    NbDatepickerModule.forRoot()
+    NbDatepickerModule.forRoot(),
+    NbWindowModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AddComponent,
+  ],
 })
 export class AppModule {
 }

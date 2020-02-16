@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HistoryComponent} from './pages/history/history.component';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AuthComponent} from './pages/auth/auth.component';
 import {AuthGuard} from './core/guards/auth/auth.guard';
 
 
 const routes: Routes = [
-  {path: 'history', component: HistoryComponent, canActivate: [AuthGuard]},
+  {path: 'history', component: DashboardComponent, canActivate: [AuthGuard]},
   {
     path: '',
-    redirectTo: '/history',
+    redirectTo: '/dashboard',
     pathMatch: 'full'
   },
   {path: 'auth/login', component: AuthComponent}

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Transaction} from '../../core/models/transaction/transaction';
-import {AngularFirestoreCollection} from '@angular/fire/firestore/collection/collection';
 import {TransactionService} from '../../core/services/transaction/transaction.service';
+import {NbWindowRef} from '@nebular/theme';
 
 @Component({
   selector: 'app-add',
@@ -12,32 +12,39 @@ import {TransactionService} from '../../core/services/transaction/transaction.se
 
 export class AddComponent implements OnInit {
 
-  model2: any = {
-    amount: '',
-    description: '',
-    date: '',
-    type: '',
-    category: ''
-  };
-
+  @ViewChild('addForm', {static: false}) addForm;
   model: Transaction = new Transaction();
+  categories = [];
+  private EXPENSE = ['food', 'personal', 'fun', 'trip', 'health', 'vehicle', 'clothes', 'transport', 'other'];
+  private INCOME = ['salary', 'investments', 'sales', 'other'];
 
-  categories: string[] = ['esto', 'es', 'una', 'prueba'];
-
-
-  constructor(private transactionService: TransactionService) {
+  constructor(private transactionService: TransactionService, public windowRef: NbWindowRef) {
   }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.transactionService.addTransaction(this.model);
-    console.log(this.model);
+    if (this.model.type === 'expense') {
+      this.model.amount = -this.model.amount;
+    }
+
+    this.transactionService.add(this.model)
+      .then(res => {
+        // this.addForm.form.reset();
+        this.close();
+      });
   }
 
-  changed() {
-    console.log(this.model.type);
+  typeChanged() {
+    if (this.model.type === 'expense') {
+      this.categories = this.EXPENSE;
+    } else {
+      this.categories = this.INCOME;
+    }
   }
 
+  close() {
+    this.windowRef.close();
+  }
 }

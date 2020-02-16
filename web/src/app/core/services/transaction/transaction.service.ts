@@ -20,7 +20,7 @@ export class TransactionService {
 
   }
 
-  getTransactions(): Observable<any> {
+  getSubscription(): Observable<any> {
     const uid = this.auth.getUser().uid;
     const coll = this.db.collection<User>('users')
       .doc<User>(uid)
@@ -28,9 +28,20 @@ export class TransactionService {
     return coll.snapshotChanges();
   }
 
-  addTransaction(transaction: Transaction): Promise<DocumentReference> {
+  add(transaction: Transaction): Promise<DocumentReference> {
     const uid = this.auth.getUser().uid;
-    const coll = this.db.collection('users').doc(uid).collection('transactions');
+    const coll = this.db.collection('users')
+      .doc(uid)
+      .collection('transactions');
     return coll.add({...transaction});
+  }
+
+  delete(id: string): Promise<void> {
+    const uid = this.auth.getUser().uid;
+    return this.db.collection('users')
+      .doc(uid)
+      .collection('transactions')
+      .doc(id)
+      .delete();
   }
 }
