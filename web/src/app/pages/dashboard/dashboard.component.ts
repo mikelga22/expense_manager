@@ -13,6 +13,9 @@ import {AddComponent} from '../add/add.component';
 export class DashboardComponent implements OnInit {
 
   transactions: Transaction[];
+  totalIncome: number;
+  totalExpense: number;
+  balance: number;
 
   constructor(private transactionService: TransactionService, private windowService: NbWindowService) {
   }
@@ -21,10 +24,12 @@ export class DashboardComponent implements OnInit {
     const subscription = this.transactionService.getSubscription().subscribe(
       (snapshot) => {
         this.transactions = [];
+        this.resetBalance();
         snapshot.forEach((item: any) => {
           const transaction: any = {};
           transaction.id = item.payload.doc.id;
           Object.assign(transaction, item.payload.doc.data());
+          this.updateBalance(transaction.type, transaction.amount);
           this.transactions.push(transaction);
         });
       },
@@ -47,5 +52,25 @@ export class DashboardComponent implements OnInit {
       .catch(reason => {
         console.log('error: ' + reason);
       });
+  }
+
+  updateBalance(type: string, amount: number) {
+    console.log(amount);
+    switch (type) {
+      case 'expense':
+        this.totalExpense += amount;
+        break;
+
+      case 'income':
+        this.totalIncome += amount;
+    }
+
+    this.balance += amount;
+  }
+
+  resetBalance() {
+    this.totalExpense = 0;
+    this.totalIncome = 0;
+    this.balance = 0;
   }
 }
