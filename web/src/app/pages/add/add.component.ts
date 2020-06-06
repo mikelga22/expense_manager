@@ -12,7 +12,7 @@ import {NbWindowRef} from '@nebular/theme';
 
 export class AddComponent implements OnInit {
 
-  @ViewChild('addForm', {static: false}) addForm;
+  @ViewChild('addForm') addForm;
   model: Transaction = new Transaction();
   categories = [];
   private EXPENSE = ['food', 'personal', 'fun', 'trip', 'health', 'vehicle', 'clothes', 'transport', 'other'];
