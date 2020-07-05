@@ -10,7 +10,7 @@ import {User} from '../../../core/models/user/user';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  private user: User = null;
+  user: User = null;
   private subscription: Subscription;
 
   constructor(private sessionService: SessionService) {

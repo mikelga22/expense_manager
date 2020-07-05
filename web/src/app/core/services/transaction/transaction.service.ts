@@ -21,7 +21,7 @@ export class TransactionService {
   }
 
   getSubscription(): Observable<any> {
-    const uid = this.auth.getUser().uid;
+    const uid = this.auth.getUser().id;
     const coll = this.db.collection<User>('users')
       .doc<User>(uid)
       .collection<Transaction>('transactions', ref => ref.orderBy('date'));
@@ -29,7 +29,7 @@ export class TransactionService {
   }
 
   add(transaction: Transaction): Promise<DocumentReference> {
-    const uid = this.auth.getUser().uid;
+    const uid = this.auth.getUser().id;
     const coll = this.db.collection('users')
       .doc(uid)
       .collection('transactions');
@@ -37,7 +37,7 @@ export class TransactionService {
   }
 
   delete(id: string): Promise<void> {
-    const uid = this.auth.getUser().uid;
+    const uid = this.auth.getUser().id;
     return this.db.collection('users')
       .doc(uid)
       .collection('transactions')

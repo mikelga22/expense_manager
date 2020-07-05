@@ -1,7 +1,9 @@
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {auth, User} from 'firebase/app';
+import {User} from '../../models/user/user'
+import {UserService} from '../user/user.service';
+import {SessionService} from '../session/session.service';
 
 
 @Injectable({
@@ -12,31 +14,46 @@ export class AuthService {
   private state: Observable<User>;
   private isLogged: boolean;
 
-  constructor(private firebaseAuth: AngularFireAuth) {
-    this.firebaseAuth.authState.subscribe(user => {
-      this.isLogged = user != null;
-    });
+  // temporal fix
+  private user: User = null;
+
+  constructor(private firebaseAuth: AngularFireAuth, private userService: UserService, private sessionService: SessionService) {
   }
 
-  logIn(email: string, password: string): Promise<auth.UserCredential> {
-    return this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(email, password);
-  }
-
-  getAuthState(): Observable<User> {
-    return this.firebaseAuth.authState;
+  async login(email: string, password: string) {
+    try {
+      const resp = await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+      const user: User = new User();
+      let data = await this.userService.getUser(resp.user.uid)
+      data = data.data();
+      user.name = data.name;
+      user.email = data.email;
+      user.id = resp.user.uid;
+      this.user = user;
+      this.isLogged = true;
+      this.sessionService.newSession(user);
+      return true
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
 
   getUser(): User | null {
-    return this.firebaseAuth.auth.currentUser;
+    return this.user;
   }
 
   isLoggedIn() {
     return this.isLogged;
   }
 
-  logOut(): Promise<void> {
-    return this.firebaseAuth.auth.signOut();
+  async logOut() {
+    try {
+      await this.firebaseAuth.signOut();
+      this.sessionService.endSession();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -6,7 +6,7 @@ import {AuthGuard} from './core/guards/auth/auth.guard';
 
 
 const routes: Routes = [
-  {path: 'history', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {
     path: '',
     redirectTo: '/dashboard',

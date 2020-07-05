@@ -55,7 +55,6 @@ export class DashboardComponent implements OnInit {
   }
 
   updateBalance(type: string, amount: number) {
-    console.log(amount);
     switch (type) {
       case 'expense':
         this.totalExpense += amount;
