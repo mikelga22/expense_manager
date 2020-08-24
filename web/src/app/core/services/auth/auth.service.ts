@@ -18,13 +18,6 @@ export class AuthService {
   private user: User = null;
 
   constructor(private firebaseAuth: AngularFireAuth, private userService: UserService, private sessionService: SessionService) {
-    this.firebaseAuth.authState.subscribe(user => {
-      console.log('authstate: ', user);
-    });
-
-    this.firebaseAuth.user.subscribe(user => {
-      console.log('user: ', user);
-    });
   }
 
   async login(email: string, password: string) {
