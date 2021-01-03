@@ -1,12 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 
 import {AngularFirestore} from '@angular/fire/firestore';
-import {UserService} from './user.service';
+import {UserService} from '../../../../src/app/core/services/user/user.service';
 
 
 const DocumentReferenceStub = {
   get: (d: any) => new Promise((resolve) => resolve(true))
 };
+
 const FirestoreStub = {
   collection: (name: string) => ({
     doc: (id: string) => ({
@@ -20,7 +21,7 @@ describe('UserService', () => {
 
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
-      { provide: AngularFirestore, useValue: FirestoreStub },
+      { provide: AngularFirestore, useValue: FirestoreStub }
     ]
   }));
 
@@ -29,9 +30,9 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('test getUser()', async () => {
+  it('#getUser() should return User', async () => {
     const service: UserService = TestBed.inject(UserService);
-    const expected = await service.getUser('12234');
-    expect(expected).toBeTrue();
+    const current = await service.getUser('12234');
+    expect(current).toBeTrue();
   });
 });
