@@ -14,17 +14,26 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AuthComponent} from './pages/auth/auth.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 import {
-  NbActionsModule, NbButtonModule,
-  NbCardModule, NbDatepickerModule,
-  NbIconModule, NbInputModule,
-  NbLayoutModule, NbRadioModule,
-  NbSearchModule, NbSelectModule,
+  NbActionsModule,
+  NbButtonModule,
+  NbCardModule,
+  NbDatepickerModule,
+  NbIconModule,
+  NbInputModule,
+  NbLayoutModule,
+  NbRadioModule,
+  NbSearchModule,
+  NbSelectModule,
   NbSidebarModule,
   NbThemeModule,
-  NbUserModule, NbWindowModule
+  NbUserModule,
+  NbWindowModule,
 } from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
+import { PieChartComponent } from './pages/dashboard/charts/pie-chart.component';
+import {BarChartComponent} from "./pages/dashboard/charts/bar-chart.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +43,8 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
     DashboardComponent,
     AddComponent,
     AuthComponent,
+    PieChartComponent,
+    BarChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +68,10 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
     NbRadioModule,
     NbSelectModule,
     NbDatepickerModule.forRoot(),
-    NbWindowModule.forRoot()
+    NbWindowModule.forRoot(),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],

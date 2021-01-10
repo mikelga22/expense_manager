@@ -1,120 +1,96 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <nb-card size="medium">
-              <nb-card-header>Movements
-                <button (click)="openAdd()"
-                        nbButton
-                        size="small"
-                        status="primary">
-                  ADD
-                </button>
-              </nb-card-header>
-              <nb-card-body>
-                <table class="table">
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th class="text-center">Date</th>
-                    <th class="text-right">Amount</th>
-                    <th></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let transaction of transactions">
-                    <td class="{{transaction.type}}-indicator"></td>
-                    <td>{{transaction.category | titlecase}}</td>
-                    <td>{{transaction.description}}</td>
-                    <td class="text-center">{{transaction.date| date:'dd/MM/yyyy'}}</td>
-                    <td class="{{transaction.type}} text-right">{{transaction.amount}}</td>
-                    <td class="text-right">
-                      <nb-icon (click)="delete(transaction.id)" class="delete-icon" icon="trash-2-outline"
-                               status="danger"></nb-icon>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </nb-card-body>
-            </nb-card>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <nb-card size="small">
-              <nb-card-header>Add</nb-card-header>
-              <nb-card-body>
 
-              </nb-card-body>
-            </nb-card>
+  <div class="row"><!--row1-->
+    <div class="col-lg-6"><!--row1-col1-->
+      <nb-card size="medium">
+        <nb-card-header>Pie chart</nb-card-header>
+        <nb-card-body>
+          <div class="div-noscroll">
+            <app-pie-chart [dataset]="pieDataset"></app-pie-chart>
           </div>
-        </div>
-      </div>
+        </nb-card-body>
+      </nb-card>
     </div>
 
-    <div class="col">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col">
-            <nb-card size="tiny">
-              <nb-card-header>Balance</nb-card-header>
-              <nb-card-body>
-                <table class="table">
-                  <tbody>
-                  <tr>
-                    <td>Total income</td>
-                    <td class="text-right income">{{totalIncome}}</td>
-                  </tr>
-                  <tr>
-                    <td>Total expense</td>
-                    <td class="text-right expense">{{totalExpense}}</td>
-                  </tr>
-                  <tr>
-                    <th>Balance</th>
-                    <th class="text-right">{{balance}}</th>
-                  </tr>
-                  </tbody>
-                </table>
-              </nb-card-body>
-            </nb-card>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <nb-card size="tiny">
-              <nb-card-header>Add</nb-card-header>
-              <nb-card-body></nb-card-body>
-            </nb-card>
-          </div>
-        </div>
-      </div>
+    <div class="col-lg-6"><!--row1-col2-->
+      <nb-card size="medium">
+        <nb-card-header>Movements
+          <button (click)="openAdd()"
+                  nbButton
+                  size="small"
+                  status="primary">
+            ADD
+          </button>
+        </nb-card-header>
+        <nb-card-body>
+          <table class="table">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Category</th>
+              <th>Description</th>
+              <th class="text-center">Date</th>
+              <th class="text-right">Amount</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let transaction of transactions; let i = index">
+              <td class="{{transaction.type}}-indicator"></td>
+              <td>{{transaction.category | titlecase}}</td>
+              <td>{{transaction.description}}</td>
+              <td class="text-center">{{transaction.date| date:'dd/MM/yyyy'}}</td>
+              <td class="{{transaction.type}} text-right">{{transaction.amount}}</td>
+              <td class="text-right">
+                <nb-icon (click)="delete(i)" class="delete-icon" icon="trash-2-outline"
+                         status="danger"></nb-icon>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </nb-card-body>
+      </nb-card>
     </div>
   </div>
 
+  <div class="row"><!--row2-->
+    <div class="col-lg-4"><!--row2-col1-->
+      <nb-card size="tiny">
+        <nb-card-header>Balance</nb-card-header>
+        <nb-card-body>
+          <div class="div-noscroll">
+            <table class="table">
+              <tbody>
+              <tr>
+                <td>Total income</td>
+                <td class="text-right income">{{totalIncome}}</td>
+              </tr>
+              <tr>
+                <td>Total expense</td>
+                <td class="text-right expense">{{totalExpense}}</td>
+              </tr>
+              <tr>
+                <th>Balance</th>
+                <th class="text-right">{{balance}}</th>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
 
-  <!--  <div class="row">-->
-  <!--    <div class="col">-->
-  <!--      <nb-card>-->
-  <!--        <nb-card-header>Add</nb-card-header>-->
-  <!--        <nb-card-body>-->
-  <!--        </nb-card-body>-->
-  <!--      </nb-card>-->
-  <!--    </div>-->
-  <!--    <div class="col">-->
-  <!--      <nb-card>-->
-  <!--        <nb-card-header>Add</nb-card-header>-->
-  <!--      </nb-card>-->
-  <!--    </div>-->
-  <!--    <div class="col">-->
-  <!--      <nb-card>-->
-  <!--        <nb-card-header>Add</nb-card-header>-->
-  <!--      </nb-card>-->
-  <!--    </div>-->
-  <!--  </div>-->
+    <div class="col-lg-8"><!--row2-col2-->
+      <nb-card size="small">
+        <nb-card-header>Monthly expense</nb-card-header>
+        <nb-card-body>
+          <div class="div-noscroll">
+            <app-bar-chart [dataset]="barDataset"></app-bar-chart>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
 </div>
 
 

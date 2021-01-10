@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Transaction} from '../../core/models/transaction/transaction';
 import {TransactionService} from '../../core/services/transaction/transaction.service';
 import {NbWindowRef} from '@nebular/theme';
+import {Categories} from '../../core/constants/constants';
 
 @Component({
   selector: 'app-add',
@@ -14,9 +15,7 @@ export class AddComponent implements OnInit {
 
   @ViewChild('addForm') addForm;
   model: Transaction = new Transaction();
-  categories = [];
-  private EXPENSE = ['food', 'personal', 'fun', 'trip', 'health', 'vehicle', 'clothes', 'transport', 'other'];
-  private INCOME = ['salary', 'investments', 'sales', 'other'];
+  categories: any;
 
   constructor(private transactionService: TransactionService, public windowRef: NbWindowRef) {
   }
@@ -29,6 +28,8 @@ export class AddComponent implements OnInit {
       this.model.amount = -this.model.amount;
     }
 
+    this.splitDate();
+
     this.transactionService.add(this.model)
       .then(res => {
         // this.addForm.form.reset();
@@ -38,13 +39,20 @@ export class AddComponent implements OnInit {
 
   typeChanged() {
     if (this.model.type === 'expense') {
-      this.categories = this.EXPENSE;
+      this.categories = Categories.EXPENSE;
     } else {
-      this.categories = this.INCOME;
+      this.categories = Categories.INCOME;
     }
   }
 
   close() {
     this.windowRef.close();
+  }
+
+  private splitDate() {
+    const parts = this.model.date.split('-');
+    this.model.year = parseInt(parts[0], 10);
+    this.model.month = parseInt(parts[1], 10);
+    this.model.day = parseInt(parts[2], 10);
   }
 }

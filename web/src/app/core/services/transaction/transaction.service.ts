@@ -23,7 +23,7 @@ export class TransactionService {
     return this.collection
       .doc<User>(uid)
       .collection<Transaction>('transactions')
-      .snapshotChanges();
+      .stateChanges(['added', 'removed']);
   }
 
   add(transaction: Transaction): Promise<DocumentReference> {
