@@ -1,0 +1,51 @@
+<form #addForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="container-fluid container-card">
+    <div class="row">
+      <div class="col">
+        <div class="form-control-group">
+          <label class="label">Type:</label>
+          <nb-select #type (selectedChange)="typeChanged()" [(ngModel)]="model.type" name="type"
+                     placeholder="Type" size="small">
+            <nb-option value="expense">Expense</nb-option>
+            <nb-option value="income">Income</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-control-group">
+          <label class="label">Category:</label>
+          <nb-select [(ngModel)]="model.category" name="category" placeholder="Category" size="small">
+            <nb-option *ngFor="let category of categories" value="{{category}}">{{category | titlecase}}</nb-option>
+          </nb-select>
+        </div>
+        <div class="form-control-group">
+          <label class="label">Date:</label>
+          <input [(ngModel)]="model.date" fieldSize="small" name="date" nbInput placeholder="Date" type="date">
+          <!--          <nb-datepicker #ngmodel></nb-datepicker>-->
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-control-group">
+          <label class="label">Amount:</label>
+          <input [(ngModel)]="model.amount" [min]="0.01" autocomplete="off" fieldSize="small"
+                 name="amount" nbInput placeholder="Amount" type="number">
+        </div>
+        <div class="form-control-group">
+          <label class="label">Detail:</label>
+          <input [(ngModel)]="model.description" autocomplete="off" fieldSize="small"
+                 name="description" nbInput placeholder="Detail" type="text">
+        </div>
+        <div class="form-control-group">
+          <button nbButton
+                  size="small"
+                  status="primary">
+            ADD
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</form>
+

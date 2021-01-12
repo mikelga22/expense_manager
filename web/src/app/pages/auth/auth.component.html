@@ -1,0 +1,39 @@
+<nb-card class="login-card">
+  <nb-card-body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col login-title"><h1>Login</h1></div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-xl-6 col-sm-12">
+        <form (ngSubmit)="logIn()">
+          <div class="form-control-group">
+            <label class="label">Email:</label>
+            <input [(ngModel)]="model.email" fullWidth name="email" nbInput placeholder="Email"
+                   type="text">
+          </div>
+          <div class="form-control-group">
+            <label class="label">Password:</label>
+            <input [(ngModel)]="model.password" fullWidth name="password" nbInput
+                   placeholder="Password" type="password">
+          </div>
+          <div class="form-control-group">
+            <button fullWidth
+                    nbButton
+                    size="large"
+                    status="primary">
+              Log In
+            </button>
+          </div>
+        </form>
+          <button fullWidth
+                  nbButton
+                  size="large"
+                  status="primary" (click)="logOut()">
+            Log out
+          </button>
+      </div>
+    </div>
+    </div>
+  </nb-card-body>
+</nb-card>

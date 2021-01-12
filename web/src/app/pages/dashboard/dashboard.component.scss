@@ -1,0 +1,32 @@
+.amount-field{
+  text-align: right;
+}
+
+.expense{
+  color: crimson;
+}
+
+.income{
+  color: #0BCA8A;
+}
+
+.expense-indicator{
+  border-left: 6px solid crimson;
+
+}
+
+.income-indicator{
+  border-left: 6px solid #00d68f;
+}
+
+.delete-icon:hover{
+  cursor: pointer;
+}
+
+.div-noscroll{
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
