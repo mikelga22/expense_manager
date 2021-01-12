@@ -12,17 +12,17 @@ Written in Angular and using Firebase as backend.
 
 Requisites:
 
-- npm
-- Angular 10.2
+-   npm
+-   Angular 10.2
 
 Usage:
 
 ```sh
-$ git clone 
+git clone 
 
-$ cd web
+cd web
 
-$ npm i
+npm i
 
-$ npm start
+npm start
 ```

@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {User} from '../../models/user/user';
-import {Observable, Subject} from 'rxjs';
+import {Injectable} from "@angular/core";
+import {User} from "../../models/user/user";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SessionService {
 

@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {SessionService} from '../../../core/services/session/session.service';
-import {User} from '../../../core/models/user/user';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Subscription} from "rxjs";
+import {SessionService} from "../../../core/services/session/session.service";
+import {User} from "../../../core/models/user/user";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.scss"]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 

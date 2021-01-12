@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AuthComponent } from '../../../src/app/pages/auth/auth.component';
+import { AuthComponent } from "../../../src/app/pages/auth/auth.component";
 
-describe('AuthComponent', () => {
+describe("AuthComponent", () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
 

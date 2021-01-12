@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit} from "@angular/core";
 
 @Component({
-  selector: 'app-bar-chart',
+  selector: "app-bar-chart",
   template: `
     <div [merge]="updateOptions" [options]="options" echarts></div>
   `,
@@ -39,17 +39,17 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnChanges {
         source: this.dataset
       },
       grid: {
-        height: '50%',
+        height: "50%",
         top: 20
       },
-      xAxis: {type: 'category'},
+      xAxis: {type: "category"},
       yAxis: {},
       series: [
         {
-          type: 'bar',
+          type: "bar",
           encode: {
-            x: 'month',
-            y: 'amount'
+            x: "month",
+            y: "amount"
           }
         }
       ]

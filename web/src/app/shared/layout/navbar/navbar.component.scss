@@ -2,10 +2,10 @@
 @import '~@nebular/theme/styles/global/breakpoints';
 @import 'src/styles';
 
-@include nb-install-component() {
+@include nb-install-component {
   width: 100%;
 
-  nb-user {
+  #user-icon {
     cursor: pointer;
   }
 
@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
   }
+
   .logo {
     padding: 0 1.25rem;
     font-size: 1.75rem;
@@ -26,11 +27,9 @@
     padding-right: 1.25rem;
     color: nb-theme(text-hint-color);
 
-    nb-icon {
+    #toggle-icon {
       font-size: 1.75rem;
     }
   }
 }
-
-
 

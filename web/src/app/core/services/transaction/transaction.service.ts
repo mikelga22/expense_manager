@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore';
-import {Transaction} from '../../models/transaction/transaction';
-import {Observable} from 'rxjs';
-import {AuthService} from '../auth/auth.service';
-import {User} from '../../models/user/user';
+import {Injectable} from "@angular/core";
+import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from "@angular/fire/firestore";
+import {Transaction} from "../../models/transaction/transaction";
+import {Observable} from "rxjs";
+import {AuthService} from "../auth/auth.service";
+import {User} from "../../models/user/user";
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TransactionService {
 
   private collection: AngularFirestoreCollection;
 
   constructor(private db: AngularFirestore, private auth: AuthService) {
-    this.collection = this.db.collection('users');
+    this.collection = this.db.collection("users");
 
   }
 
@@ -22,15 +22,15 @@ export class TransactionService {
     const uid = this.auth.getUser().id;
     return this.collection
       .doc<User>(uid)
-      .collection<Transaction>('transactions')
-      .stateChanges(['added', 'removed']);
+      .collection<Transaction>("transactions")
+      .stateChanges(["added", "removed"]);
   }
 
   add(transaction: Transaction): Promise<DocumentReference> {
     const uid = this.auth.getUser().id;
     return this.collection
       .doc(uid)
-      .collection('transactions')
+      .collection("transactions")
       .add({...transaction});
   }
 
@@ -38,7 +38,7 @@ export class TransactionService {
     const uid = this.auth.getUser().id;
     return this.collection
       .doc(uid)
-      .collection('transactions')
+      .collection("transactions")
       .doc(id)
       .delete();
   }

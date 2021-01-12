@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {Injectable} from "@angular/core";
+import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserService {
 
   private collection: AngularFirestoreCollection;
 
   constructor(private db: AngularFirestore) {
-    this.collection = this.db.collection('users');
+    this.collection = this.db.collection("users");
   }
 
   getUser(id: string): Promise<any> {

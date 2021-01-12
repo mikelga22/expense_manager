@@ -1,7 +1,7 @@
-import {TestBed} from '@angular/core/testing';
+import {TestBed} from "@angular/core/testing";
 
-import {AngularFirestore} from '@angular/fire/firestore';
-import {UserService} from '../../../../src/app/core/services/user/user.service';
+import {AngularFirestore} from "@angular/fire/firestore";
+import {UserService} from "../../../../src/app/core/services/user/user.service";
 
 
 const DocumentReferenceStub = {
@@ -16,7 +16,7 @@ const FirestoreStub = {
   }),
 };
 
-describe('UserService', () => {
+describe("UserService", () => {
   // let angularFirestore: AngularFirestore;
 
   beforeEach(() => TestBed.configureTestingModule({
@@ -25,14 +25,14 @@ describe('UserService', () => {
     ]
   }));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: UserService = TestBed.inject(UserService);
     expect(service).toBeTruthy();
   });
 
-  it('#getUser() should return User', async () => {
+  it("#getUser() should return User", async () => {
     const service: UserService = TestBed.inject(UserService);
-    const current = await service.getUser('12234');
+    const current = await service.getUser("12234");
     expect(current).toBeTrue();
   });
 });

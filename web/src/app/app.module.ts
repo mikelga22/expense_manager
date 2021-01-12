@@ -1,20 +1,20 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {environment} from '../environments/environment';
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
+import {environment} from "../environments/environment";
 
-import {AppRoutingModule} from './app-routing.module';
-import {FormsModule} from '@angular/forms';
-import {AppComponent} from './app.component';
-import {NavbarComponent} from './shared/layout/navbar/navbar.component';
-import {FooterComponent} from './shared/layout/footer/footer.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {DashboardComponent} from './pages/dashboard/dashboard.component';
-import {AddComponent} from './pages/add/add.component';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AuthComponent} from './pages/auth/auth.component';
-import { NgxEchartsModule } from 'ngx-echarts';
+import {AppRoutingModule} from "./app-routing.module";
+import {FormsModule} from "@angular/forms";
+import {AppComponent} from "./app.component";
+import {NavbarComponent} from "./shared/layout/navbar/navbar.component";
+import {FooterComponent} from "./shared/layout/footer/footer.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
+import {AddComponent} from "./pages/add/add.component";
+import {AngularFireModule} from "@angular/fire";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {AuthComponent} from "./pages/auth/auth.component";
+import { NgxEchartsModule } from "ngx-echarts";
 import {
   NbActionsModule,
   NbButtonModule,
@@ -30,9 +30,9 @@ import {
   NbThemeModule,
   NbUserModule,
   NbWindowModule,
-} from '@nebular/theme';
-import {NbEvaIconsModule} from '@nebular/eva-icons';
-import { PieChartComponent } from './pages/dashboard/charts/pie-chart.component';
+} from "@nebular/theme";
+import {NbEvaIconsModule} from "@nebular/eva-icons";
+import { PieChartComponent } from "./pages/dashboard/charts/pie-chart.component";
 import {BarChartComponent} from "./pages/dashboard/charts/bar-chart.component";
 
 @NgModule({
@@ -54,7 +54,7 @@ import {BarChartComponent} from "./pages/dashboard/charts/bar-chart.component";
     AngularFirestoreModule,
     FormsModule,
     AngularFireAuthModule,
-    NbThemeModule.forRoot({name: 'default'}),
+    NbThemeModule.forRoot({name: "default"}),
     NbLayoutModule,
     NbEvaIconsModule,
     NbSidebarModule.forRoot(),
@@ -70,7 +70,7 @@ import {BarChartComponent} from "./pages/dashboard/charts/bar-chart.component";
     NbDatepickerModule.forRoot(),
     NbWindowModule.forRoot(),
     NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
+      echarts: () => import("echarts")
     })
   ],
   providers: [],

@@ -1,32 +1,30 @@
-.amount-field{
+.amount-field {
   text-align: right;
 }
 
-.expense{
+.expense {
   color: crimson;
 }
 
-.income{
-  color: #0BCA8A;
+.income {
+  color: #0bca8a;
 }
 
-.expense-indicator{
+.expense-indicator {
   border-left: 6px solid crimson;
-
 }
 
-.income-indicator{
+.income-indicator {
   border-left: 6px solid #00d68f;
 }
 
-.delete-icon:hover{
+.delete-icon:hover {
   cursor: pointer;
 }
 
-.div-noscroll{
+.div-noscroll {
   height: 100%;
   width: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
 }
-

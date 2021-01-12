@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TransactionService} from '../../core/services/transaction/transaction.service';
-import {Transaction} from '../../core/models/transaction/transaction';
-import {NbWindowService} from '@nebular/theme';
-import {AddComponent} from '../add/add.component';
-import {Categories} from '../../core/constants/constants';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {TransactionService} from "../../core/services/transaction/transaction.service";
+import {Transaction} from "../../core/models/transaction/transaction";
+import {NbWindowService} from "@nebular/theme";
+import {AddComponent} from "../add/add.component";
+import {Categories} from "../../core/constants/constants";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"],
   providers: [TransactionService, NbWindowService]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
@@ -25,18 +25,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   transactions: Transaction[];
 
   barDataset = [
-    {month: 'January', amount: 0},
-    {month: 'February', amount: 0},
-    {month: 'March', amount: 0},
-    {month: 'April', amount: 0},
-    {month: 'May', amount: 0},
-    {month: 'June', amount: 0},
-    {month: 'July', amount: 0},
-    {month: 'August', amount: 0},
-    {month: 'September', amount: 0},
-    {month: 'October', amount: 0},
-    {month: 'November', amount: 0},
-    {month: 'December', amount: 0}
+    {month: "January", amount: 0},
+    {month: "February", amount: 0},
+    {month: "March", amount: 0},
+    {month: "April", amount: 0},
+    {month: "May", amount: 0},
+    {month: "June", amount: 0},
+    {month: "July", amount: 0},
+    {month: "August", amount: 0},
+    {month: "September", amount: 0},
+    {month: "October", amount: 0},
+    {month: "November", amount: 0},
+    {month: "December", amount: 0}
   ];
 
   constructor(private transactionService: TransactionService, private windowService: NbWindowService) {
@@ -59,9 +59,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           const transaction: Transaction = new Transaction();
           transaction.id = item.payload.doc.id;
           Object.assign(transaction, item.payload.doc.data());
-          if (item.type === 'added') {
+          if (item.type === "added") {
             this.transactions.push(transaction);
-          } else if (item.type === 'removed') {
+          } else if (item.type === "removed") {
             transaction.amount = -transaction.amount;
           }
 
@@ -71,16 +71,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
         this.transactions.sort((a, b) => a.date.localeCompare(b.date));
       },
-      error => {
-        console.log('No permissions');
-        console.log(error);
+      (error) => {
+        // to do show some error
       },
-      () => console.log('complete')
     );
   }
 
   openAdd() {
-    this.windowService.open(AddComponent, {title: 'Add'});
+    this.windowService.open(AddComponent, {title: "Add"});
   }
 
   delete(index: number) {
@@ -88,13 +86,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.transactionService.delete(id).then(() => {
       this.transactions.splice(index, 1);
     })
-      .catch(reason => {
-        console.log('error: ', reason);
+      .catch((error) => {
+        // to do show some error
       });
   }
 
   updateBalance(type: string, amount: number) {
-    if (type === 'expense') {
+    if (type === "expense") {
       this.totalExpense += amount;
     } else {
       this.totalIncome += amount;
@@ -110,7 +108,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   updatePieDataset(category: string, type: string, amount: number) {
-    if (type === 'expense') {
+    if (type === "expense") {
       this.pieDataset[Categories.EXPENSE.indexOf(category)].value += -amount;
     }
 
@@ -119,7 +117,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   updateBarDataset(transaction: Transaction) {
-    if (transaction.year === this.currentYear && transaction.type === 'expense') {
+    if (transaction.year === this.currentYear && transaction.type === "expense") {
       this.barDataset[transaction.month - 1].amount += -transaction.amount;
 
       // Fix to fire OnChanges() at child component
@@ -127,8 +125,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  initPieDataset(){
-    Categories.EXPENSE.forEach(e => {
+  initPieDataset() {
+    Categories.EXPENSE.forEach((e) => {
       this.pieDataset.push({
         name: e,
         value: 0

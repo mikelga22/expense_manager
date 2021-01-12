@@ -1,13 +1,13 @@
-import {AngularFireAuth} from '@angular/fire/auth';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {User} from '../../models/user/user';
-import {UserService} from '../user/user.service';
-import {SessionService} from '../session/session.service';
+import {AngularFireAuth} from "@angular/fire/auth";
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {User} from "../../models/user/user";
+import {UserService} from "../user/user.service";
+import {SessionService} from "../session/session.service";
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthService {
 
@@ -34,7 +34,6 @@ export class AuthService {
       this.sessionService.newSession(user);
       return true;
     } catch (e) {
-      console.log(e);
       return false;
     }
   }

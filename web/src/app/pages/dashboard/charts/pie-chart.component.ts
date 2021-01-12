@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {Categories} from '../../../core/constants/constants';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
+import {Categories} from "../../../core/constants/constants";
 
 @Component({
-  selector: 'app-pie-chart',
+  selector: "app-pie-chart",
   template: `
     <div [merge]="updateOptions" [options]="options" echarts></div>
   `,
@@ -24,7 +24,6 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.dataset);
     this.updateOptions = {
       series: [{
         data: this.dataset
@@ -35,29 +34,29 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnChanges {
   initOptions() {
     this.options = {
       tooltip: {
-        trigger: 'item',
-        formatter: '{b}: {c} ({d}%)'
+        trigger: "item",
+        formatter: "{b}: {c} ({d}%)"
       },
       legend: {
-        orient: 'vertical',
+        orient: "vertical",
         left: 10,
         data: Categories.EXPENSE
       },
       series: [
         {
-          name: 'Expenses',
-          type: 'pie',
-          radius: ['50%', '70%'],
+          name: "Expenses",
+          type: "pie",
+          radius: ["50%", "70%"],
           avoidLabelOverlap: true,
           label: {
             show: false,
-            position: 'center'
+            position: "center"
           },
           emphasis: {
             label: {
               show: true,
-              fontSize: '30',
-              fontWeight: 'bold'
+              fontSize: "30",
+              fontWeight: "bold"
             }
           },
           labelLine: {

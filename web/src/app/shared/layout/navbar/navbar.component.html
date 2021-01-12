@@ -3,14 +3,14 @@
     <div class="col-auto">
       <div class="logo-container">
         <a class="sidebar-toggle">
-          <nb-icon icon="menu-2-outline"></nb-icon>
+          <nb-icon id="toggle-icon" icon="menu-2-outline"></nb-icon>
         </a>
         <a class="logo" routerLink="/dashboard">Expense manager</a>
       </div>
     </div>
     <div class="col-auto">
       <div *ngIf="user" routerLink="/auth/login">
-        <nb-user [name]="user.name" [onlyPicture]=true>
+        <nb-user id="user-icon" [name]="user.name" [onlyPicture]=true>
         </nb-user>
       </div>
       <div *ngIf="!user" routerLink="/auth/login">

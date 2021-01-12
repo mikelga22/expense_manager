@@ -1,19 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../core/services/auth/auth.service';
-import {UserService} from '../../core/services/user/user.service';
-import {SessionService} from '../../core/services/session/session.service';
-import {Router} from '@angular/router';
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {AuthService} from "../../core/services/auth/auth.service";
+import {SessionService} from "../../core/services/session/session.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  selector: "app-auth",
+  templateUrl: "./auth.component.html",
+  styleUrls: ["./auth.component.scss"]
 })
 export class AuthComponent implements OnInit, OnDestroy {
 
   model: any = {
-    email: '',
-    password: ''
+    email: "",
+    password: ""
   };
 
   constructor(private authService: AuthService, private sessionService: SessionService, private router: Router) {
@@ -24,9 +23,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   logIn() {
-    this.authService.login(this.model.email, this.model.password).then(value => {
+    this.authService.login(this.model.email, this.model.password).then((value) => {
       if (value) {
-        this.router.navigate(['/']);
+        this.router.navigate(["/"]);
       }
     });
   }
