@@ -21,7 +21,7 @@ const DocumentStub = {
 };
 
 const CollectionStub = {
-  snapshotChanges: () => new Observable((observer) => {
+  stateChanges: () => new Observable((observer) => {
     observer.next(true);
     observer.complete();
   }),

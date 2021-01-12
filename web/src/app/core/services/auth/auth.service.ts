@@ -12,7 +12,7 @@ import {SessionService} from '../session/session.service';
 export class AuthService {
 
   private state: Observable<User>;
-  private isLogged: boolean;
+  private isLogged = false;
 
   // temporal fix
   private user: User = null;
@@ -51,6 +51,8 @@ export class AuthService {
     try {
       await this.firebaseAuth.signOut();
       this.sessionService.endSession();
+      this.isLogged = false;
+      this.user = null;
       return true;
     } catch (e) {
       return false;
