@@ -36,7 +36,7 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnChanges {
     this.options = {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b}: {c} ({d}%)'
+        formatter: '{b}: {c} ({d}%)'
       },
       legend: {
         orient: 'vertical',
@@ -45,7 +45,7 @@ export class PieChartComponent implements OnInit, AfterViewInit, OnChanges {
       },
       series: [
         {
-          name: 'Balance',
+          name: 'Expenses',
           type: 'pie',
           radius: ['50%', '70%'],
           avoidLabelOverlap: true,

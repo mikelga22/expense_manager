@@ -27,6 +27,6 @@ describe('AppComponent', () => {
   it(`should have as title 'web'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('web');
+    expect(app.title).toEqual('Expense manager');
   });
 });
