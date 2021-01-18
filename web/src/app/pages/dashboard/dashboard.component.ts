@@ -4,12 +4,14 @@ import {Transaction} from "../../core/models/transaction/transaction";
 import {NbWindowService} from "@nebular/theme";
 import {AddComponent} from "../add/add.component";
 import {Categories} from "../../core/constants/constants";
+import {AuthService} from "../../core/services/auth/auth.service";
+import {takeWhile} from "rxjs/operators";
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
-  providers: [TransactionService, NbWindowService]
+  providers: [NbWindowService]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -39,7 +41,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {month: "December", amount: 0}
   ];
 
-  constructor(private transactionService: TransactionService, private windowService: NbWindowService) {
+  constructor(private transactionService: TransactionService, private windowService: NbWindowService, private auth: AuthService) {
     this.currentYear = new Date().getFullYear();
 
     this.balance = 0;
@@ -53,28 +55,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataSubscription = this.transactionService.getSubscription().subscribe(
-      (snapshot) => {
-        snapshot.forEach((item: any) => {
-          const transaction: Transaction = new Transaction();
-          transaction.id = item.payload.doc.id;
-          Object.assign(transaction, item.payload.doc.data());
-          if (item.type === "added") {
-            this.transactions.push(transaction);
-          } else if (item.type === "removed") {
-            transaction.amount = -transaction.amount;
-          }
+    this.auth.onStateChange()
+      .pipe(takeWhile((user) => user != null))
+      .subscribe((user) => {
+        if (user) {
+          this.dataSubscription = this.transactionService.getSubscription().subscribe(
+            (snapshot) => {
+              snapshot.forEach((item: any) => {
+                const transaction: Transaction = new Transaction();
+                transaction.id = item.payload.doc.id;
+                Object.assign(transaction, item.payload.doc.data());
+                if (item.type === "added") {
+                  this.transactions.push(transaction);
+                } else if (item.type === "removed") {
+                  transaction.amount = -transaction.amount;
+                }
 
-          this.updateBarDataset(transaction);
-          this.updateBalance(transaction.type, transaction.amount);
-          this.updatePieDataset(transaction.category, transaction.type, transaction.amount);
-        });
-        this.transactions.sort((a, b) => a.date.localeCompare(b.date));
-      },
-      (error) => {
-        // to do show some error
-      },
-    );
+                this.updateBarDataset(transaction);
+                this.updateBalance(transaction.type, transaction.amount);
+                this.updatePieDataset(transaction.category, transaction.type, transaction.amount);
+              });
+              this.transactions.sort((a, b) => a.date.localeCompare(b.date));
+            },
+            (error) => {
+              // to do show some error
+            });
+        }
+      });
   }
 
   openAdd() {

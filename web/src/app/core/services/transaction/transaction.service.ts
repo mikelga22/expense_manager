@@ -12,32 +12,37 @@ import {User} from "../../models/user/user";
 export class TransactionService {
 
   private collection: AngularFirestoreCollection;
+  private id: string;
 
   constructor(private db: AngularFirestore, private auth: AuthService) {
-    this.collection = this.db.collection("users");
+    this.auth.onStateChange().subscribe((user) => {
+      if (user) {
+        this.id = user.id;
+      } else {
+        this.id = null;
+      }
+    });
 
+    this.collection = this.db.collection("users");
   }
 
   getSubscription(): Observable<any> {
-    const uid = this.auth.getUser().id;
     return this.collection
-      .doc<User>(uid)
+      .doc<User>(this.id)
       .collection<Transaction>("transactions")
       .stateChanges(["added", "removed"]);
   }
 
   add(transaction: Transaction): Promise<DocumentReference> {
-    const uid = this.auth.getUser().id;
     return this.collection
-      .doc(uid)
+      .doc(this.id)
       .collection("transactions")
       .add({...transaction});
   }
 
   delete(id: string): Promise<void> {
-    const uid = this.auth.getUser().id;
     return this.collection
-      .doc(uid)
+      .doc(this.id)
       .collection("transactions")
       .doc(id)
       .delete();

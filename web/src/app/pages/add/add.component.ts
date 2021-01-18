@@ -7,8 +7,7 @@ import {Categories} from "../../core/constants/constants";
 @Component({
   selector: "app-add",
   templateUrl: "./add.component.html",
-  styleUrls: ["./add.component.scss"],
-  providers: [TransactionService]
+  styleUrls: ["./add.component.scss"]
 })
 
 export class AddComponent implements OnInit {

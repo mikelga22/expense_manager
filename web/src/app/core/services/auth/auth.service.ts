@@ -1,9 +1,8 @@
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {User} from "../../models/user/user";
 import {UserService} from "../user/user.service";
-import {SessionService} from "../session/session.service";
 
 
 @Injectable({
@@ -11,50 +10,51 @@ import {SessionService} from "../session/session.service";
 })
 export class AuthService {
 
-  private state: Observable<User>;
   private isLogged = false;
+  private state: Subject<User | null> = new Subject<User | null>();
 
-  // temporal fix
-  private user: User = null;
-
-  constructor(private firebaseAuth: AngularFireAuth, private userService: UserService, private sessionService: SessionService) {
+  constructor(private firebaseAuth: AngularFireAuth, private userService: UserService) {
+    this.firebaseAuth.authState.subscribe(async (fireUser) => {
+      if (fireUser === null) {
+        this.isLogged = false;
+        this.state.next(null);
+      } else {
+        this.isLogged = true;
+        const id = fireUser.uid;
+        const user: User = new User();
+        const data = (await this.userService.getUser(id)).data();
+        user.id = id;
+        user.name = data.name;
+        user.email = data.email;
+        this.state.next(user);
+      }
+    });
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<boolean> {
     try {
-      const resp = await this.firebaseAuth.signInWithEmailAndPassword(email, password);
-      const user: User = new User();
-      let data = await this.userService.getUser(resp.user.uid);
-      data = data.data();
-      user.name = data.name;
-      user.email = data.email;
-      user.id = resp.user.uid;
-      this.user = user;
+      await this.firebaseAuth.signInWithEmailAndPassword(email, password);
       this.isLogged = true;
-      this.sessionService.newSession(user);
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  getUser(): User | null {
-    return this.user;
+  async logOut(): Promise<boolean> {
+    try {
+      await this.firebaseAuth.signOut();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     return this.isLogged;
   }
 
-  async logOut() {
-    try {
-      await this.firebaseAuth.signOut();
-      this.sessionService.endSession();
-      this.isLogged = false;
-      this.user = null;
-      return true;
-    } catch (e) {
-      return false;
-    }
+  onStateChange(): Observable<User | null> {
+    return this.state;
   }
 }

@@ -9,14 +9,12 @@
       </div>
     </div>
     <div class="col-auto">
-      <div *ngIf="user" routerLink="/auth/login">
+      <div *ngIf="user" (click)="logout()">
         <nb-user id="user-icon" [name]="user.name" [onlyPicture]=true>
         </nb-user>
-      </div>
-      <div *ngIf="!user" routerLink="/auth/login">
-        <a routerLink="/auth/login">LogIn</a>
-      </div>
-    </div>
+      <!--</div>
+      <div *ngIf="!user">LogIn</div>
+    </div>-->
   </div>
 </div>
 

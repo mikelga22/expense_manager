@@ -3,16 +3,19 @@ import {TestBed} from "@angular/core/testing";
 import {TransactionService} from "../../../../src/app/core/services/transaction/transaction.service";
 import {Observable} from "rxjs";
 import {AngularFirestore} from "@angular/fire/firestore";
-import {User} from "../../../../src/app/core/models/user/user";
 import {AuthService} from "../../../../src/app/core/services/auth/auth.service";
 import {Transaction} from "../../../../src/app/core/models/transaction/transaction";
 
+const userStub = {
+  name: "name",
+  email: "email@email.com",
+  uid: "1234"
+};
+
 const AuthServieStub = {
-  getUser: () => {
-    const user = new User();
-    user.id = "1234";
-    return user;
-  }
+  onStateChange: () => new Observable((observer) => {
+    observer.next(userStub);
+  })
 };
 
 const DocumentStub = {

@@ -4,6 +4,7 @@ import {AuthService} from "../../../../src/app/core/services/auth/auth.service";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {UserService} from "../../../../src/app/core/services/user/user.service";
 import {User} from "../../../../src/app/core/models/user/user";
+import {of} from "rxjs";
 
 const userStub = {
   name: "name",
@@ -20,6 +21,15 @@ const resp = {
   }
 };
 
+const fireUserStub = {
+  email: "email@email.com",
+  uid: "1234"
+};
+
+let userState = null;
+
+const authStateStub = of(userState);
+
 const UserServiceStub = {
   getUser: () => new Promise((resolve) => resolve(dataStub))
 };
@@ -27,12 +37,19 @@ const UserServiceStub = {
 const AngularFireAuthStub = {
   signInWithEmailAndPassword: (email, password) => {
     if (email === "email" && password === "password") {
+      userState = fireUserStub;
       return new Promise((resolve) => resolve(resp));
     } else {
       return new Promise((resolve, reject) => reject("Bad login"));
     }
   },
-  signOut: () => new Promise((resolve) => resolve(true))
+
+  signOut: () => new Promise((resolve) => {
+    userState = null;
+    resolve(true);
+  }),
+
+  authState: authStateStub
 };
 
 describe("AuthService", () => {
@@ -62,25 +79,27 @@ describe("AuthService", () => {
     expect(login).toBeFalse();
   });
 
-  it("#getUser() should return user if loged", async () => {
+  it("#onStateChange() should return user if logged", async () => {
     const expected: User = new User();
+    let current: User = null;
+
     expected.id = "1234";
     expected.name = "name";
     expected.email = "email@email.com";
 
     const service: AuthService = TestBed.inject(AuthService);
+
     await service.login("email", "password");
-    const current = service.getUser();
 
-    expect(current).toEqual(expected);
+    service.onStateChange().subscribe((user) => expect(user).toEqual(expected));
   });
 
-  it("#getUser() should return null if not logged", async () => {
-    const service: AuthService = TestBed.inject(AuthService);
-    const current = service.getUser();
-
-    expect(current).toBeNull();
-  });
+  // it("#getUser() should return null if not logged", async () => {
+  //   const service: AuthService = TestBed.inject(AuthService);
+  //   const current = service.getUser();
+  //
+  //   expect(current).toBeNull();
+  // });
 
   it("#isLoggedIn() should return true if logged", async () => {
     const service: AuthService = TestBed.inject(AuthService);
