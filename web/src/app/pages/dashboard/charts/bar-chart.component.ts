@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit} from "@angular/core";
+import {AfterViewInit, Component, Input, OnChanges} from "@angular/core";
 
 @Component({
   selector: "app-bar-chart",
@@ -6,7 +6,7 @@ import {AfterViewInit, Component, Input, OnChanges, OnInit} from "@angular/core"
     <div [merge]="updateOptions" [options]="options" echarts></div>
   `,
 })
-export class BarChartComponent implements OnInit, AfterViewInit, OnChanges {
+export class BarChartComponent implements AfterViewInit, OnChanges {
 
   @Input() dataset: any = [];
 
@@ -14,9 +14,6 @@ export class BarChartComponent implements OnInit, AfterViewInit, OnChanges {
   updateOptions: any = {};
 
   constructor() {
-  }
-
-  ngOnInit() {
   }
 
   ngAfterViewInit(): void {

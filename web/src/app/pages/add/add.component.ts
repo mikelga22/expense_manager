@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {Transaction} from "../../core/models/transaction/transaction";
 import {TransactionService} from "../../core/services/transaction/transaction.service";
 import {NbWindowRef} from "@nebular/theme";
@@ -10,16 +10,13 @@ import {Categories} from "../../core/constants/constants";
   styleUrls: ["./add.component.scss"]
 })
 
-export class AddComponent implements OnInit {
+export class AddComponent {
 
   @ViewChild("addForm") addForm;
   model: Transaction = new Transaction();
   categories: any;
 
   constructor(private transactionService: TransactionService, public windowRef: NbWindowRef) {
-  }
-
-  ngOnInit() {
   }
 
   onSubmit() {

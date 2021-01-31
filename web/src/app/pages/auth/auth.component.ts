@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {AuthService} from "../../core/services/auth/auth.service";
 import {Router} from "@angular/router";
 
@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   templateUrl: "./auth.component.html",
   styleUrls: ["./auth.component.scss"]
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent {
 
   model: any = {
     email: "",
@@ -16,8 +16,6 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router) {
   }
-
-  ngOnInit() {}
 
   logIn() {
     this.authService.login(this.model.email, this.model.password).then((value) => {
@@ -29,8 +27,5 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   logOut() {
     this.authService.logOut();
-  }
-
-  ngOnDestroy(): void {
   }
 }

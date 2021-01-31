@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
+import {AfterViewInit, Component, Input, OnChanges} from "@angular/core";
 import {Categories} from "../../../core/constants/constants";
 
 @Component({
@@ -7,16 +7,14 @@ import {Categories} from "../../../core/constants/constants";
     <div [merge]="updateOptions" [options]="options" echarts></div>
   `,
 })
-export class PieChartComponent implements OnInit, AfterViewInit, OnChanges {
+export class PieChartComponent implements AfterViewInit, OnChanges {
 
   @Input() dataset: any = [];
 
   options: any = {};
   updateOptions: any = {};
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
   }
 
   ngAfterViewInit(): void {
